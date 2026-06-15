@@ -40,6 +40,7 @@ export function AuthProvider({ children }) {
   }, [])
 
   async function loadProfile() {
+    setLoading(true)
     try {
       const p = await getProfile(true)
       setProfile(p)

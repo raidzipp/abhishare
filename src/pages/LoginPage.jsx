@@ -32,9 +32,11 @@ export default function LoginPage() {
     if (!email || !password) { setError('Please enter both fields.'); return }
     setLoading(true)
     const { error: err } = await supabase.auth.signInWithPassword({ email, password })
-    setLoading(false)
-    if (err) setError(err.message)
-    else navigate('/dashboard')
+    if (err) {
+      setError(err.message)
+      setLoading(false)
+    }
+    // If successful, we stay in loading state until AuthContext redirects us
   }
 
   return (

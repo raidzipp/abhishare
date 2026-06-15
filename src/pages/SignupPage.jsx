@@ -39,16 +39,16 @@ export default function SignupPage() {
 
     setLoading(true)
     try {
-      const { data, error: authErr } = await supabase.auth.signUp({ email, password })
-      if (authErr) throw authErr
-
-      if (data.user) {
-        await supabase.from('profiles').upsert({
-          id: data.user.id,
-          full_name: name.trim(),
-          gender,
-          phone_number: phone.trim(),
-        })
+      const { error: err } = await supabase.auth.signUp({
+        email, password,
+        options: { data: { full_name: name, gender, phone_number: phone } }
+      })
+      
+      if (err) {
+        setError(err.message)
+        setLoading(false)
+      } else {
+        navigate('/profile-setup')
       }
       navigate('/profile-setup')
     } catch (err) {
