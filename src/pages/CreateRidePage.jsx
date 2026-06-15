@@ -8,7 +8,6 @@ import './pages.css'
 
 export default function CreateRidePage() {
   const { user, profile } = useAuth()
-  const nav = useNavigate()
   const [cars, setCars] = useState([])
   const [selectedCar, setSelectedCar] = useState(null)
   const [src, setSrc] = useState('')

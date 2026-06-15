@@ -15,7 +15,17 @@ export default function SignupPage() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const navigate = useNavigate()
-  const { user } = useAuth()
+  const { user, loading: authLoading } = useAuth()
+
+  if (authLoading) {
+    return (
+      <div className="app-loading">
+        <div className="app-loading-logo">🚗</div>
+        <div className="app-loading-text gradient-text">RideZipp</div>
+        <div className="spinner spinner-brand" style={{ width: 28, height: 28 }} />
+      </div>
+    )
+  }
 
   if (user) return <Navigate to="/dashboard" replace />
 

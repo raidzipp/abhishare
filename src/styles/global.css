@@ -168,3 +168,25 @@ ul, ol {
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
+
+/* ── Loading Screen ── */
+.app-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  gap: 16px;
+  background: var(--page-bg);
+}
+
+.app-loading-logo {
+  font-size: 56px;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.app-loading-text {
+  font-size: var(--text-4xl);
+  font-weight: 900;
+  letter-spacing: -0.5px;
+}

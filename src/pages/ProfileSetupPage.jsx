@@ -6,13 +6,23 @@ import { calculateAge } from '../utils/helpers'
 import './pages.css'
 
 export default function ProfileSetupPage() {
-  const { user, profileComplete, refreshProfile } = useAuth()
+  const { user, profileComplete, refreshProfile, loading: authLoading } = useAuth()
   const [dob, setDob] = useState('')
   const [photoFile, setPhotoFile] = useState(null)
   const [photoPreview, setPhotoPreview] = useState(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const navigate = useNavigate()
+
+  if (authLoading) {
+    return (
+      <div className="app-loading">
+        <div className="app-loading-logo">🚗</div>
+        <div className="app-loading-text gradient-text">RideZipp</div>
+        <div className="spinner spinner-brand" style={{ width: 28, height: 28 }} />
+      </div>
+    )
+  }
 
   if (!user) return <Navigate to="/" replace />
   if (profileComplete) return <Navigate to="/dashboard" replace />

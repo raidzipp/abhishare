@@ -10,14 +10,14 @@ export default function MyRidesPage() {
   const [bookings, setBookings] = useState([])
   const [loading, setLoading] = useState(true)
 
-  useEffect(() => { loadData() }, [])
-
   async function loadData() {
     setLoading(true)
     const [p, b] = await Promise.all([getMyPostedRides(), getMyBookings()])
     setPosted(p); setBookings(b)
     setLoading(false)
   }
+
+  useEffect(() => { loadData() }, [])
 
   return (
     <div className="page-enter">
