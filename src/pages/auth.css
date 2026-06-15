@@ -1,0 +1,181 @@
+/* ═══════════════════════════════════════════════════
+   RideZipp Auth Pages Styles (Login + Signup)
+   ═══════════════════════════════════════════════════ */
+
+.auth-page {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* ── Visual Side ── */
+.auth-visual {
+  flex: 1;
+  background: linear-gradient(160deg, #1e0a3c 0%, #2d1566 35%, #6366F1 65%, #8B5CF6 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.auth-circle {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+.auth-circle-1 {
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(139,92,246,0.3), transparent 70%);
+  top: -10%; right: -12%;
+  animation: pulse 6s ease-in-out infinite;
+}
+.auth-circle-2 {
+  width: 350px; height: 350px;
+  background: radial-gradient(circle, rgba(236,72,153,0.15), transparent 70%);
+  bottom: -10%; left: -5%;
+  animation: pulse 6s ease-in-out infinite 3s;
+}
+.auth-circle-3 {
+  width: 200px; height: 200px;
+  background: radial-gradient(circle, rgba(168,85,247,0.2), transparent 70%);
+  top: 40%; left: 20%;
+  animation: pulse 8s ease-in-out infinite 1.5s;
+}
+
+.auth-visual-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 48px;
+  max-width: 440px;
+}
+.auth-emoji {
+  font-size: 72px;
+  display: block;
+  margin-bottom: 24px;
+  animation: pulse 3s ease-in-out infinite;
+}
+.auth-visual-content h2 {
+  font-size: 36px;
+  font-weight: 900;
+  color: #fff;
+  margin-bottom: 16px;
+  line-height: 1.15;
+  letter-spacing: -0.5px;
+}
+.auth-visual-content p {
+  color: rgba(255,255,255,0.7);
+  font-size: 15px;
+  line-height: 1.6;
+  font-weight: 500;
+}
+
+.auth-visual-stats {
+  display: flex;
+  justify-content: center;
+  gap: 28px;
+  margin-top: 36px;
+  padding-top: 28px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+.auth-stat { text-align: center; }
+.auth-stat-num {
+  display: block;
+  font-size: 22px;
+  font-weight: 900;
+  color: #fff;
+}
+.auth-stat-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.5);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* ── Form Side ── */
+.auth-form-side {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  background: var(--card-bg);
+}
+
+.auth-form-container {
+  width: 100%;
+  max-width: 400px;
+  animation: fadeInRight 0.5s var(--ease-out);
+}
+
+.auth-form-logo {
+  font-size: 24px;
+  font-weight: 900;
+  margin-bottom: 32px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.auth-form-container h1 {
+  font-size: 28px;
+  font-weight: 900;
+  margin-bottom: 6px;
+  color: var(--text-primary);
+  letter-spacing: -0.5px;
+}
+
+.auth-subtitle {
+  color: var(--text-muted);
+  font-size: 15px;
+  margin-bottom: 32px;
+  font-weight: 500;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.input-pwd-wrap {
+  position: relative;
+}
+.input-pwd-wrap .input-field { padding-right: 48px; }
+.input-pwd-toggle {
+  position: absolute;
+  right: 12px; top: 50%; transform: translateY(-50%);
+  color: var(--text-muted);
+  background: none; border: none; cursor: pointer;
+}
+.input-pwd-toggle .material-icons { font-size: 20px; }
+
+.auth-link {
+  text-align: center;
+  margin-top: 24px;
+  color: var(--text-muted);
+  font-size: 14px;
+  font-weight: 500;
+}
+.auth-link a {
+  color: var(--brand-1);
+  font-weight: 700;
+  text-decoration: none;
+}
+.auth-link a:hover { text-decoration: underline; }
+
+/* ── Form 2-col grid ── */
+.auth-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .auth-page { flex-direction: column; }
+  .auth-visual { min-height: 220px; flex: none; }
+  .auth-visual-content h2 { font-size: 24px; }
+  .auth-emoji { font-size: 48px; margin-bottom: 14px; }
+  .auth-visual-stats { gap: 16px; margin-top: 20px; padding-top: 16px; }
+  .auth-stat-num { font-size: 18px; }
+  .auth-form-side { padding: 32px 24px; }
+  .auth-2col { grid-template-columns: 1fr; }
+}

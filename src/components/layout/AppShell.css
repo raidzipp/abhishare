@@ -1,0 +1,55 @@
+.app-shell {
+  display: flex;
+  min-height: 100vh;
+  background: var(--page-bg);
+}
+
+.shell-main {
+  flex: 1;
+  margin-left: var(--sidebar-width);
+  transition: margin-left var(--duration-normal) var(--ease-out);
+  min-width: 0;
+}
+
+.shell-collapsed .shell-main {
+  margin-left: var(--sidebar-collapsed);
+}
+
+.shell-content {
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: 28px;
+  animation: fadeInUp 0.4s var(--ease-out);
+}
+
+/* ── Loading Screen ── */
+.app-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  gap: 16px;
+  background: var(--page-bg);
+}
+
+.app-loading-logo {
+  font-size: 56px;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.app-loading-text {
+  font-size: var(--text-4xl);
+  font-weight: 900;
+  letter-spacing: -0.5px;
+}
+
+/* ── Mobile ── */
+@media (max-width: 768px) {
+  .shell-main {
+    margin-left: 0;
+    padding-bottom: 72px;
+  }
+  .shell-collapsed .shell-main { margin-left: 0; }
+  .shell-content { padding: 16px; }
+}
