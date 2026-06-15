@@ -16,7 +16,14 @@ export function AuthProvider({ children }) {
   const [profileComplete, setProfileComplete] = useState(false)
 
   useEffect(() => {
-    // Listen for auth changes (handles initial session automatically)
+    // Initial session check
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null)
+      if (session?.user) loadProfile()
+      else setLoading(false)
+    })
+
+    // Listen for auth changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
       setUser(prevUser => {
         // Only trigger loading screen if we are transitioning from logged out to logged in
@@ -33,9 +40,6 @@ export function AuthProvider({ children }) {
         setLoading(false)
       } else if (session?.user) {
         await loadProfile()
-      } else {
-        // Logged out on initial load
-        setLoading(false)
       }
     })
 

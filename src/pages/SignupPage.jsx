@@ -50,8 +50,10 @@ export default function SignupPage() {
       } else {
         navigate('/profile-setup')
       }
+      navigate('/profile-setup')
     } catch (err) {
-      setError(err.message || 'Signup failed. Please check your connection or environment variables.')
+      setError(err.message || 'Signup failed')
+    } finally {
       setLoading(false)
     }
   }

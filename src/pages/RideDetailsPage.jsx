@@ -7,20 +7,6 @@ import { formatDateTimeFull, formatPrice } from '../utils/helpers'
 import { RAZORPAY_KEY } from '../utils/constants'
 import './pages.css'
 
-function loadRazorpayScript() {
-  return new Promise((resolve) => {
-    if (window.Razorpay) {
-      resolve(true)
-      return
-    }
-    const script = document.createElement('script')
-    script.src = 'https://checkout.razorpay.com/v1/checkout.js'
-    script.onload = () => resolve(true)
-    script.onerror = () => resolve(false)
-    document.body.appendChild(script)
-  })
-}
-
 export default function RideDetailsPage() {
   const { id } = useParams()
   const { user } = useAuth()
@@ -92,19 +78,10 @@ export default function RideDetailsPage() {
     }
   }
 
-  async function handleBook() {
+  function handleBook() {
     if (payMethod === 'cash') {
       createBooking('cash', 'cash')
     } else {
-      setBooking(true)
-      const isLoaded = await loadRazorpayScript()
-      setBooking(false)
-      
-      if (!isLoaded) {
-        showToast('Failed to load payment gateway. Please check your connection or try Cash.', 'error')
-        return
-      }
-
       // Razorpay JS checkout
       const options = {
         key: RAZORPAY_KEY,
