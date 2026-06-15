@@ -13,7 +13,7 @@ export default function LoginPage() {
   const navigate = useNavigate()
   const { user, profileComplete, loading: authLoading } = useAuth()
 
-  if (authLoading) {
+  if (authLoading && !user) {
     return (
       <div className="app-loading">
         <div className="app-loading-logo">🚗</div>
@@ -23,8 +23,10 @@ export default function LoginPage() {
     )
   }
 
-  if (user && profileComplete) return <Navigate to="/dashboard" replace />
-  if (user && !profileComplete) return <Navigate to="/profile-setup" replace />
+  if (!authLoading) {
+    if (user && profileComplete) return <Navigate to="/dashboard" replace />
+    if (user && !profileComplete) return <Navigate to="/profile-setup" replace />
+  }
 
   async function handleLogin(e) {
     e.preventDefault()

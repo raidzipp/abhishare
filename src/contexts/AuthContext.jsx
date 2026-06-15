@@ -42,7 +42,7 @@ export function AuthProvider({ children }) {
   async function loadProfile() {
     setLoading(true)
     try {
-      const p = await getProfile(true)
+      const p = await getProfile(false) // Use cache for faster data loading
       setProfile(p)
       // Mobile AuthGate check: date_of_birth must be set
       setProfileComplete(!!p?.date_of_birth)

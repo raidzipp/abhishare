@@ -17,7 +17,7 @@ export default function SignupPage() {
   const navigate = useNavigate()
   const { user, loading: authLoading } = useAuth()
 
-  if (authLoading) {
+  if (authLoading && !user) {
     return (
       <div className="app-loading">
         <div className="app-loading-logo">🚗</div>
@@ -27,7 +27,7 @@ export default function SignupPage() {
     )
   }
 
-  if (user) return <Navigate to="/dashboard" replace />
+  if (!authLoading && user) return <Navigate to="/dashboard" replace />
 
   async function handleSignup(e) {
     e.preventDefault()
