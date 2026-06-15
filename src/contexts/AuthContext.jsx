@@ -25,7 +25,14 @@ export function AuthProvider({ children }) {
 
     // Listen for auth changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
-      setUser(session?.user ?? null)
+      setUser(prevUser => {
+        // Only trigger loading screen if we are transitioning from logged out to logged in
+        if (!prevUser && session?.user) {
+          setLoading(true)
+        }
+        return session?.user ?? null
+      })
+      
       if (event === 'SIGNED_OUT') {
         setProfile(null)
         setProfileComplete(false)
@@ -40,7 +47,6 @@ export function AuthProvider({ children }) {
   }, [])
 
   async function loadProfile() {
-    setLoading(true)
     try {
       const p = await getProfile(false) // Use cache for faster data loading
       setProfile(p)

@@ -26,8 +26,11 @@ export default function ProfilePage() {
   }
 
   async function handleLogout() {
-    await logout()
-    navigate('/')
+    try {
+      await logout()
+    } finally {
+      navigate('/')
+    }
   }
 
   const age = calculateAge(profile?.date_of_birth)

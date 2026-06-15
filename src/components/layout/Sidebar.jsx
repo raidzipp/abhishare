@@ -28,8 +28,11 @@ export default function Sidebar({ collapsed, onToggle }) {
   }
 
   async function handleLogout() {
-    await logout()
-    navigate('/')
+    try {
+      await logout()
+    } finally {
+      navigate('/')
+    }
   }
 
   return (

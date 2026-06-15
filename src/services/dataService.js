@@ -192,7 +192,11 @@ export async function getBookingStats() {
 // ── Logout ──
 export async function logout() {
   cacheClear()
-  await supabase.auth.signOut()
+  try {
+    await supabase.auth.signOut()
+  } catch (err) {
+    console.error('Logout error:', err)
+  }
 }
 
 export { cacheClear }
