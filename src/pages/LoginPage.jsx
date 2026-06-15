@@ -33,12 +33,17 @@ export default function LoginPage() {
     setError('')
     if (!email || !password) { setError('Please enter both fields.'); return }
     setLoading(true)
-    const { error: err } = await supabase.auth.signInWithPassword({ email, password })
-    if (err) {
-      setError(err.message)
+    try {
+      const { error: err } = await supabase.auth.signInWithPassword({ email, password })
+      if (err) {
+        setError(err.message)
+        setLoading(false)
+      }
+      // If successful, we stay in loading state until AuthContext redirects us
+    } catch (e) {
+      setError(e.message || 'An unexpected error occurred. Please check your connection or environment variables.')
       setLoading(false)
     }
-    // If successful, we stay in loading state until AuthContext redirects us
   }
 
   return (
