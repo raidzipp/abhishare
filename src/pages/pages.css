@@ -139,9 +139,13 @@
 /* ── Hero ── */
 .v3-hero {
   position: relative;
-  background: linear-gradient(135deg, #F8F5FF 0%, #EEF2FF 100%);
-  border-radius: var(--radius-2xl);
-  padding: 32px 32px;
+  background-image: url('/assets/hero_bg.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: #F2F1FF;
+  border-radius: 32px;
+  padding: 32px;
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
@@ -162,12 +166,12 @@
 }
 
 .v3-hero-greeting {
-  font-size: 32px; font-weight: 700; color: #111827;
+  font-size: 48px; font-weight: 700; color: #111827;
   letter-spacing: -0.5px; margin-bottom: 8px;
 }
 
 .v3-hero-sub {
-  font-size: 16px; color: #6B7280; font-weight: 500;
+  font-size: 20px; color: #6B7280; font-weight: 500;
 }
 
 .v3-hero-center {
@@ -180,15 +184,16 @@
 .v3-search {
   display: flex; align-items: center; gap: 12px;
   background: #FFFFFF;
-  border-radius: var(--radius-full);
+  border-radius: 24px;
   padding: 10px 10px 10px 20px;
   cursor: pointer;
   width: 520px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  height: 64px;
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.08);
   transition: all var(--duration-fast);
 }
 .v3-search:hover {
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.12);
 }
 .v3-search-icon { color: #6B7280; font-size: 22px; }
 .v3-search-text { flex: 1; font-size: 15px; color: #111827; font-weight: 500; }
