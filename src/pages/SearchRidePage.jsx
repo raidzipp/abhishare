@@ -6,9 +6,9 @@ import { formatTime, formatPrice } from '../utils/helpers'
 import './pages.css'
 
 export default function SearchRidePage() {
-  const [from, setFrom] = useState('')
-  const [to, setTo] = useState('')
-  const [date, setDate] = useState('')
+  const [from, setFrom] = useState(localStorage.getItem('rz_search_from') || '')
+  const [to, setTo] = useState(localStorage.getItem('rz_search_to') || '')
+  const [date, setDate] = useState(new Date().toISOString().split('T')[0])
   const [persons, setPersons] = useState(1)
   const [results, setResults] = useState([])
   const [searched, setSearched] = useState(false)
@@ -42,8 +42,11 @@ export default function SearchRidePage() {
 
   async function search() {
     if (!from && !to) return
+    localStorage.setItem('rz_search_from', from)
+    localStorage.setItem('rz_search_to', to)
     setSearched(true); setLoading(true); setFromDrop([]); setToDrop([])
     try {
+      // In a real app we'd also pass date and persons, but dataService.searchRides only takes from/to currently
       const res = await searchRides({ from, to })
       setResults(res)
     } finally { setLoading(false) }
@@ -57,63 +60,61 @@ export default function SearchRidePage() {
 
   return (
     <div className="page-enter">
-      <div className="search-hero animate-in">
-        <div className="circle-deco-1" style={{position:'absolute',width:180,height:180,borderRadius:'50%',background:'rgba(255,255,255,0.07)',top:-40,right:-40}} />
-        <div className="circle-deco-2" style={{position:'absolute',width:110,height:110,borderRadius:'50%',background:'rgba(255,255,255,0.05)',bottom:-25,left:-20}} />
-        <h1>Find a Ride 🔍</h1>
-        <div className="search-glass">
-          <div className="search-inputs">
-            <div className="search-input-wrap" ref={fromRef}>
-              <span className="search-input-icon src" />
-              <input className="search-input" placeholder="Leaving from…" value={from}
-                onChange={e => onFrom(e.target.value)} onKeyDown={e => e.key === 'Enter' && search()} />
-              {fromDrop.length > 0 && (
-                <div className="dropdown" style={{zIndex:60}}>
-                  {fromDrop.map(c => (
-                    <div key={c} className="dropdown-item" onClick={() => { setFrom(c); setFromDrop([]) }}>
-                      <span className="material-icons" style={{fontSize:14, color:'var(--brand-1)'}}>location_on</span>{c}
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-            <button className="search-swap" onClick={swap} title="Swap">
-              <span className="material-icons" style={{fontSize:18}}>swap_vert</span>
-            </button>
-            <div className="search-input-wrap" ref={toRef}>
-              <span className="search-input-icon dst" />
-              <input className="search-input" placeholder="Going to…" value={to}
-                onChange={e => onTo(e.target.value)} onKeyDown={e => e.key === 'Enter' && search()} />
-              {toDrop.length > 0 && (
-                <div className="dropdown" style={{zIndex:60}}>
-                  {toDrop.map(c => (
-                    <div key={c} className="dropdown-item" onClick={() => { setTo(c); setToDrop([]) }}>
-                      <span className="material-icons" style={{fontSize:14, color:'var(--brand-1)'}}>location_on</span>{c}
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
+      <div className="search-panel animate-in">
+        <h1>
+          <span className="material-icons">search</span>
+          Find a Ride
+        </h1>
+        <div className="search-inputs">
+          <div className="search-input-wrap" ref={fromRef}>
+            <span className="search-input-icon src" />
+            <input className="search-input" placeholder="Leaving from…" value={from}
+              onChange={e => onFrom(e.target.value)} onKeyDown={e => e.key === 'Enter' && search()} />
+            {fromDrop.length > 0 && (
+              <div className="dropdown" style={{zIndex:60}}>
+                {fromDrop.map(c => (
+                  <div key={c} className="dropdown-item" onClick={() => { setFrom(c); setFromDrop([]) }}>
+                    <span className="material-icons" style={{fontSize:14, color:'var(--brand-1)'}}>location_on</span>{c}
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
-          <div className="search-row-2">
-            <input className="search-date" type="date" value={date} onChange={e => setDate(e.target.value)}
-              min={new Date().toISOString().split('T')[0]} />
-            <div className="search-persons-box">
-              <span className="material-icons" style={{fontSize:14, color:'var(--text-muted)'}}>people</span>
-              <button className="search-persons-btn" onClick={() => setPersons(Math.max(1, persons - 1))}>−</button>
-              <span className="search-persons-num">{persons}</span>
-              <button className="search-persons-btn" onClick={() => setPersons(Math.min(6, persons + 1))}>+</button>
-            </div>
-          </div>
-          <button className="search-go" onClick={search} disabled={!from && !to}>
-            <span className="material-icons" style={{fontSize:16}}>search</span>
-            Search Rides
+          <button className="search-swap" onClick={swap} title="Swap">
+            <span className="material-icons" style={{fontSize:16}}>swap_vert</span>
           </button>
+          <div className="search-input-wrap" ref={toRef}>
+            <span className="search-input-icon dst" />
+            <input className="search-input" placeholder="Going to…" value={to}
+              onChange={e => onTo(e.target.value)} onKeyDown={e => e.key === 'Enter' && search()} />
+            {toDrop.length > 0 && (
+              <div className="dropdown" style={{zIndex:60}}>
+                {toDrop.map(c => (
+                  <div key={c} className="dropdown-item" onClick={() => { setTo(c); setToDrop([]) }}>
+                    <span className="material-icons" style={{fontSize:14, color:'var(--brand-1)'}}>location_on</span>{c}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
+        <div className="search-row-2">
+          <input className="search-date" type="date" value={date} onChange={e => setDate(e.target.value)}
+            min={new Date().toISOString().split('T')[0]} />
+          <div className="search-persons-box">
+            <span className="material-icons" style={{fontSize:14, color:'var(--text-muted)'}}>people</span>
+            <button className="search-persons-btn" onClick={() => setPersons(Math.max(1, persons - 1))}>−</button>
+            <span className="search-persons-num">{persons}</span>
+            <button className="search-persons-btn" onClick={() => setPersons(Math.min(6, persons + 1))}>+</button>
+          </div>
+        </div>
+        <button className="search-go" onClick={search} disabled={!from && !to}>
+          <span className="material-icons" style={{fontSize:16}}>search</span>
+          Search Rides
+        </button>
       </div>
 
       <div className="filter-row animate-in animate-in-delay-1">
-        <span className="material-icons" style={{fontSize:16, color:'var(--text-muted)', alignSelf:'center'}}>filter_list</span>
         {filters.map(f => (
           <button key={f} className={`filter-chip ${activeFilter === f ? 'active' : ''}`}
             onClick={() => setActiveFilter(f)}>{f}</button>
@@ -130,7 +131,7 @@ export default function SearchRidePage() {
       <div className="ride-list animate-in animate-in-delay-2">
         {loading ? (
           <div style={{textAlign:'center', padding:40, color:'var(--text-muted)'}}>
-            <div className="spinner spinner-brand" style={{width:28,height:28,margin:'0 auto 12px'}} />
+            <div className="spinner spinner-brand" style={{width:24,height:24,margin:'0 auto 10px'}} />
           </div>
         ) : searched && filtered.length === 0 ? (
           <div className="empty-state">
@@ -153,13 +154,13 @@ function SearchRideCard({ ride }) {
       <div className="rcard-top">
         <div className="rcard-avatar">
           {d.profile_photo_url ? <img src={d.profile_photo_url} alt="" />
-            : <span className="material-icons" style={{color:'var(--text-muted)',fontSize:24}}>person</span>}
+            : <span className="material-icons" style={{color:'var(--text-muted)',fontSize:20}}>person</span>}
         </div>
         <div>
           <div className="rcard-driver-name">{d.full_name || 'Driver'}</div>
           <div className="rcard-driver-meta">{ride.vehicle_model || 'Car'} · {ride.total_seats}-Seater</div>
         </div>
-        {d.rating > 0 && <div className="rcard-rating"><span className="material-icons" style={{fontSize:12}}>star</span>{Number(d.rating).toFixed(1)}</div>}
+        {d.rating > 0 && <div className="rcard-rating"><span className="material-icons" style={{fontSize:11}}>star</span>{Number(d.rating).toFixed(1)}</div>}
         {ride.is_women_only && <span className="badge badge-pink" style={{marginLeft:4}}>♀ Women Only</span>}
       </div>
       <div className="rcard-route">
@@ -174,7 +175,7 @@ function SearchRideCard({ ride }) {
             <div className="rcard-city">{ride.destination}</div>
           </div>
         </div>
-        <div className="rcard-meta" style={{marginTop:12}}>
+        <div className="rcard-meta" style={{marginTop:10}}>
           <span className="rcard-meta-item"><span className="material-icons">calendar_today</span>{formatTime(ride.departure_time)}</span>
           <span className="rcard-meta-item"><span className="material-icons">schedule</span>{new Date(ride.departure_time).toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit',hour12:true})}</span>
           <span className="rcard-meta-item"><span className="material-icons">event_seat</span>{ride.available_seats} left</span>

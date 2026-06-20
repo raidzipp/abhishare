@@ -11,21 +11,20 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const navigate = useNavigate()
-  const { user, profileComplete, loading: authLoading } = useAuth()
+  const { user, loading: authLoading } = useAuth()
 
   if (authLoading && !user) {
     return (
       <div className="app-loading">
-        <div className="app-loading-logo">🚗</div>
+        <div className="app-loading-logo">R</div>
         <div className="app-loading-text gradient-text">RideZipp</div>
-        <div className="spinner spinner-brand" style={{ width: 28, height: 28 }} />
+        <div className="spinner spinner-brand" style={{ width: 24, height: 24 }} />
       </div>
     )
   }
 
-  if (!authLoading) {
-    if (user && profileComplete) return <Navigate to="/dashboard" replace />
-    if (user && !profileComplete) return <Navigate to="/profile-setup" replace />
+  if (!authLoading && user) {
+    return <Navigate to="/dashboard" replace />
   }
 
   async function handleLogin(e) {
@@ -48,7 +47,7 @@ export default function LoginPage() {
         <div className="auth-circle auth-circle-2" />
         <div className="auth-circle auth-circle-3" />
         <div className="auth-visual-content">
-          <span className="auth-emoji">🚗</span>
+          <div className="auth-emoji">🚗</div>
           <h2>Share rides,<br />save money</h2>
           <p>Join thousands of commuters carpooling across Telangana. Post a ride or find one in seconds.</p>
           <div className="auth-visual-stats">
@@ -69,11 +68,14 @@ export default function LoginPage() {
       </div>
       <div className="auth-form-side">
         <div className="auth-form-container">
-          <div className="auth-form-logo">🚗 <span className="gradient-text">RideZipp</span></div>
+          <div className="auth-form-logo">
+            <div className="auth-form-logo-icon">R</div>
+            <span>RideZipp</span>
+          </div>
           <h1>Welcome back</h1>
           <p className="auth-subtitle">Sign in to continue to RideZipp</p>
 
-          {error && <div className="alert alert-error"><span className="material-icons" style={{fontSize:18}}>error</span>{error}</div>}
+          {error && <div className="alert alert-error" style={{ marginBottom: 16 }}><span className="material-icons" style={{fontSize:16}}>error</span>{error}</div>}
 
           <form onSubmit={handleLogin} className="auth-form">
             <div className="input-group">
@@ -91,7 +93,7 @@ export default function LoginPage() {
                 </button>
               </div>
             </div>
-            <button type="submit" className="btn btn-brand-lg" disabled={loading} style={{width:'100%', marginTop:8}}>
+            <button type="submit" className="btn btn-brand-lg" disabled={loading} style={{width:'100%', marginTop:4}}>
               {loading && <span className="spinner" />}
               {loading ? 'Signing in…' : 'Sign In'}
             </button>

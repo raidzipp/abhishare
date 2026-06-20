@@ -21,22 +21,24 @@ export default function MyRidesPage() {
 
   return (
     <div className="page-enter">
-      <h1 style={{ fontSize: 'var(--text-5xl)', fontWeight: 900, letterSpacing: '-0.5px', marginBottom: 24 }}>My Rides</h1>
+      <div className="page-header">
+        <h1 className="page-title">My Rides</h1>
+      </div>
 
       <div className="myrides-tabs">
         <button className={`tab-btn ${tab === 'posted' ? 'active' : ''}`} onClick={() => setTab('posted')}>
-          <span className="material-icons" style={{ fontSize: 16, marginRight: 6 }}>directions_car</span>
+          <span className="material-icons" style={{ fontSize: 16, marginRight: 4 }}>directions_car</span>
           Posted ({posted.length})
         </button>
         <button className={`tab-btn ${tab === 'bookings' ? 'active' : ''}`} onClick={() => setTab('bookings')}>
-          <span className="material-icons" style={{ fontSize: 16, marginRight: 6 }}>confirmation_number</span>
+          <span className="material-icons" style={{ fontSize: 16, marginRight: 4 }}>confirmation_number</span>
           Bookings ({bookings.length})
         </button>
       </div>
 
       {loading ? (
-        <div style={{ textAlign: 'center', padding: 60, color: 'var(--text-muted)' }}>
-          <div className="spinner spinner-brand" style={{ width: 28, height: 28, margin: '0 auto 12px' }} />
+        <div style={{ textAlign: 'center', padding: 48, color: 'var(--text-muted)' }}>
+          <div className="spinner spinner-brand" style={{ width: 24, height: 24, margin: '0 auto 10px' }} />
           Loading…
         </div>
       ) : tab === 'posted' ? (

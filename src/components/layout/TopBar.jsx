@@ -1,13 +1,25 @@
 import { useAuth } from '../../contexts/AuthContext'
 import { getInitial } from '../../utils/helpers'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { logout } from '../../services/dataService'
 import { useState, useRef, useEffect } from 'react'
 import './TopBar.css'
 
+const PAGE_TITLES = {
+  '/dashboard': 'Dashboard',
+  '/search': 'Search Rides',
+  '/create-ride': 'Post a Ride',
+  '/my-rides': 'My Rides',
+  '/alerts': 'Notifications',
+  '/profile': 'Profile',
+  '/profile/edit': 'Edit Profile',
+  '/add-vehicle': 'Add Vehicle',
+}
+
 export default function TopBar() {
   const { profile } = useAuth()
   const navigate = useNavigate()
+  const location = useLocation()
   const [showMenu, setShowMenu] = useState(false)
   const menuRef = useRef(null)
 
@@ -24,12 +36,20 @@ export default function TopBar() {
     navigate('/')
   }
 
+  const pageTitle = PAGE_TITLES[location.pathname] || (location.pathname.startsWith('/ride/') ? 'Ride Details' : 'RideZipp')
+
   return (
     <header className="topbar">
       <div className="topbar-left">
-        <h2 className="topbar-greeting">
-          {profile?.full_name ? `Hey, ${profile.full_name.split(' ')[0]}` : 'Welcome'}
-        </h2>
+        <div className="topbar-breadcrumb">
+          <span className="topbar-breadcrumb-item">{pageTitle}</span>
+        </div>
+      </div>
+
+      <div className="topbar-search" onClick={() => navigate('/search')} role="button" tabIndex={0} aria-label="Search rides">
+        <span className="material-icons">search</span>
+        <span className="topbar-search-text">Search rides…</span>
+        <span className="topbar-search-kbd">⌘K</span>
       </div>
 
       <div className="topbar-right">
@@ -46,6 +66,7 @@ export default function TopBar() {
                 <span>{getInitial(profile?.full_name)}</span>
               )}
             </div>
+            <span className="topbar-user-name">{profile?.full_name?.split(' ')[0] || 'User'}</span>
             <span className="material-icons topbar-caret">expand_more</span>
           </button>
 

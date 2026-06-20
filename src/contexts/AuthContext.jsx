@@ -50,8 +50,8 @@ export function AuthProvider({ children }) {
     try {
       const p = await getProfile(false) // Use cache for faster data loading
       setProfile(p)
-      // Mobile AuthGate check: date_of_birth must be set
-      setProfileComplete(!!p?.date_of_birth)
+      // New explicit onboarding check
+      setProfileComplete(!!p?.profile_completed)
     } catch (err) {
       console.error('Error loading profile:', err)
     } finally {
@@ -62,7 +62,7 @@ export function AuthProvider({ children }) {
   async function refreshProfile() {
     const p = await getProfile(true)
     setProfile(p)
-    setProfileComplete(!!p?.date_of_birth)
+    setProfileComplete(!!p?.profile_completed)
   }
 
   return (

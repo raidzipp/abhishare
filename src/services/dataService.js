@@ -30,17 +30,18 @@ function cacheClear() {
 
 // ── Profile ──
 export async function getProfile(forceRefresh = false) {
-  const user = supabase.auth.currentUser ?? (await supabase.auth.getUser()).data?.user
-  if (!user) return null
-
   if (!forceRefresh) {
     const cached = cacheGet('profile')
     if (cached) return cached
   }
 
+  const { data: { session } } = await supabase.auth.getSession()
+  const user = session?.user
+  if (!user) return null
+
   const { data } = await supabase
     .from('profiles')
-    .select('id, full_name, rating, profile_photo_url, gender, bio, phone_number, role, is_verified, is_blocked, date_of_birth')
+    .select('id, full_name, rating, profile_photo_url, gender, bio, phone_number, role, is_verified, is_blocked, date_of_birth, profile_completed')
     .eq('id', user.id)
     .maybeSingle()
 
@@ -49,9 +50,14 @@ export async function getProfile(forceRefresh = false) {
 }
 
 // ── Recommended Rides (Home) ──
-export async function getRecommendedRides() {
-  const cached = cacheGet('recommended_rides')
-  const user = supabase.auth.currentUser ?? (await supabase.auth.getUser()).data?.user
+export async function getRecommendedRides(forceRefresh = false) {
+  if (!forceRefresh) {
+    const cached = cacheGet('recommended_rides')
+    if (cached) return cached
+  }
+
+  const { data: { session } } = await supabase.auth.getSession()
+  const user = session?.user
 
   const now = new Date().toISOString()
   let query = supabase
@@ -71,7 +77,7 @@ export async function getRecommendedRides() {
   const { data, error } = await query.order('departure_time').limit(20)
   if (error) {
     console.error('Error fetching recommended rides:', error)
-    return cached || []
+    return cacheGet('recommended_rides') || []
   }
 
   const fresh = data || []
@@ -80,8 +86,14 @@ export async function getRecommendedRides() {
 }
 
 // ── My Bookings ──
-export async function getMyBookings() {
-  const user = supabase.auth.currentUser ?? (await supabase.auth.getUser()).data?.user
+export async function getMyBookings(forceRefresh = false) {
+  if (!forceRefresh) {
+    const cached = cacheGet('my_bookings')
+    if (cached) return cached
+  }
+
+  const { data: { session } } = await supabase.auth.getSession()
+  const user = session?.user
   if (!user) return []
 
   const { data, error } = await supabase
@@ -104,8 +116,14 @@ export async function getMyBookings() {
 }
 
 // ── My Posted Rides ──
-export async function getMyPostedRides() {
-  const user = supabase.auth.currentUser ?? (await supabase.auth.getUser()).data?.user
+export async function getMyPostedRides(forceRefresh = false) {
+  if (!forceRefresh) {
+    const cached = cacheGet('my_posted_rides')
+    if (cached) return cached
+  }
+
+  const { data: { session } } = await supabase.auth.getSession()
+  const user = session?.user
   if (!user) return []
 
   const { data, error } = await supabase
@@ -146,8 +164,14 @@ export async function searchRides({ from, to } = {}) {
 }
 
 // ── Get User Cars ──
-export async function getUserCars() {
-  const user = supabase.auth.currentUser ?? (await supabase.auth.getUser()).data?.user
+export async function getUserCars(forceRefresh = false) {
+  if (!forceRefresh) {
+    const cached = cacheGet('user_cars')
+    if (cached) return cached
+  }
+
+  const { data: { session } } = await supabase.auth.getSession()
+  const user = session?.user
   if (!user) return []
 
   const { data } = await supabase
@@ -156,11 +180,13 @@ export async function getUserCars() {
     .eq('owner_id', user.id)
     .order('created_at', { ascending: false })
 
+  if (data) cacheSet('user_cars', data)
   return data || []
 }
 
 // ── Ride by ID ──
 export async function getRideById(id) {
+  // Always fetch fresh for a single ride details
   const { data } = await supabase
     .from('rides')
     .select(`
@@ -173,8 +199,14 @@ export async function getRideById(id) {
 }
 
 // ── Booking Stats ──
-export async function getBookingStats() {
-  const user = supabase.auth.currentUser ?? (await supabase.auth.getUser()).data?.user
+export async function getBookingStats(forceRefresh = false) {
+  if (!forceRefresh) {
+    const cached = cacheGet('booking_stats')
+    if (cached) return cached
+  }
+
+  const { data: { session } } = await supabase.auth.getSession()
+  const user = session?.user
   if (!user) return { ridesBooked: 0, amountSpent: 0 }
 
   const { data } = await supabase
@@ -183,10 +215,12 @@ export async function getBookingStats() {
     .eq('passenger_id', user.id)
 
   const bookings = data || []
-  return {
+  const stats = {
     ridesBooked: bookings.length,
     amountSpent: bookings.reduce((sum, b) => sum + (Number(b.total_paid) || 0), 0),
   }
+  cacheSet('booking_stats', stats)
+  return stats
 }
 
 // ── Logout ──

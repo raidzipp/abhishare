@@ -76,11 +76,13 @@ export default function CreateRidePage() {
 
   if (success) {
     return (
-      <div className="page-enter" style={{ textAlign: 'center', padding: '80px 24px' }}>
-        <div style={{ fontSize: 64, marginBottom: 16 }}>🎉</div>
-        <h2 style={{ fontSize: 'var(--text-4xl)', fontWeight: 900, marginBottom: 8 }}>Ride Posted!</h2>
-        <p style={{ color: 'var(--text-muted)', marginBottom: 24 }}>Your ride from <strong>{src}</strong> to <strong>{dst}</strong> is now live.</p>
-        <div style={{ display: 'flex', gap: 12, justifyContent: 'center' }}>
+      <div className="page-enter" style={{ textAlign: 'center', padding: '60px 24px' }}>
+        <div style={{ width: 56, height: 56, borderRadius: 'var(--radius-xl)', background: 'var(--green-light)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 16px' }}>
+          <span className="material-icons" style={{ fontSize: 28, color: 'var(--green)' }}>check_circle</span>
+        </div>
+        <h2 style={{ fontSize: 'var(--text-3xl)', fontWeight: 700, marginBottom: 6 }}>Ride Posted!</h2>
+        <p style={{ color: 'var(--text-muted)', marginBottom: 24, fontWeight: 400 }}>Your ride from <strong>{src}</strong> to <strong>{dst}</strong> is now live.</p>
+        <div style={{ display: 'flex', gap: 10, justifyContent: 'center' }}>
           <Link to="/my-rides" className="btn btn-brand">View My Rides</Link>
           <button className="btn btn-outline" onClick={() => { setSuccess(false); setSrc(''); setDst(''); setDt(''); setPrice(''); setNote('') }}>Post Another</button>
         </div>
@@ -92,16 +94,19 @@ export default function CreateRidePage() {
 
   return (
     <div className="page-enter">
-      <h1 style={{ fontSize: 'var(--text-5xl)', fontWeight: 900, letterSpacing: '-0.5px', marginBottom: 24 }}>Post a Ride</h1>
+      <div className="page-header">
+        <h1 className="page-title">Post a Ride</h1>
+        <p className="page-subtitle">Share your ride and earn by carpooling</p>
+      </div>
 
-      {err && <div className="alert alert-error" style={{ marginBottom: 16 }}><span className="material-icons" style={{ fontSize: 18 }}>error</span>{err}</div>}
+      {err && <div className="alert alert-error" style={{ marginBottom: 14 }}><span className="material-icons" style={{ fontSize: 16 }}>error</span>{err}</div>}
 
       <form onSubmit={submit} className="create-form">
         {/* Vehicle Selection */}
         {cars.length > 0 && (
-          <div style={{ marginBottom: 20 }}>
+          <div style={{ marginBottom: 18 }}>
             <label className="input-label-sm">SELECT VEHICLE</label>
-            <div style={{ display: 'flex', gap: 8, marginTop: 8, flexWrap: 'wrap' }}>
+            <div style={{ display: 'flex', gap: 6, marginTop: 8, flexWrap: 'wrap' }}>
               {cars.map(c => (
                 <button type="button" key={c.id}
                   className={`filter-chip ${selectedCar?.id === c.id ? 'active' : ''}`}
@@ -116,8 +121,8 @@ export default function CreateRidePage() {
         )}
 
         {cars.length === 0 && (
-          <div style={{ background: 'var(--indicator-bg)', borderRadius: 'var(--radius-lg)', padding: '14px 18px', marginBottom: 20, display: 'flex', alignItems: 'center', gap: 10 }}>
-            <span className="material-icons" style={{ color: 'var(--brand-1)' }}>info</span>
+          <div style={{ background: 'var(--indicator-bg)', borderRadius: 'var(--radius-md)', padding: '12px 16px', marginBottom: 18, display: 'flex', alignItems: 'center', gap: 8 }}>
+            <span className="material-icons" style={{ color: 'var(--brand-1)', fontSize: 18 }}>info</span>
             <span style={{ flex: 1, fontSize: 'var(--text-md)', fontWeight: 500 }}>Add a vehicle to auto-fill details.</span>
             <Link to="/add-vehicle" className="btn btn-brand btn-sm">Add Vehicle</Link>
           </div>
@@ -152,7 +157,7 @@ export default function CreateRidePage() {
         </div>
 
         {/* DateTime */}
-        <div className="input-group" style={{ marginTop: 16 }}>
+        <div className="input-group" style={{ marginTop: 14 }}>
           <label className="input-label">Date & Time *</label>
           <input className="input-field" type="datetime-local" value={dt}
             onChange={e => setDt(e.target.value)} required
@@ -160,7 +165,7 @@ export default function CreateRidePage() {
         </div>
 
         {/* Price & Seats */}
-        <div className="create-2col" style={{ marginTop: 16 }}>
+        <div className="create-2col" style={{ marginTop: 14 }}>
           <div className="input-group">
             <label className="input-label">Price per Seat (₹) *</label>
             <input className="input-field" type="number" min="1" placeholder="350"
@@ -175,7 +180,7 @@ export default function CreateRidePage() {
 
         {/* Vehicle (manual if no car selected) */}
         {!selectedCar && (
-          <div className="create-2col" style={{ marginTop: 16 }}>
+          <div className="create-2col" style={{ marginTop: 14 }}>
             <div className="input-group">
               <label className="input-label">Vehicle Model</label>
               <input className="input-field" placeholder="Maruti Swift" />
@@ -188,7 +193,7 @@ export default function CreateRidePage() {
         )}
 
         {/* Note */}
-        <div className="input-group" style={{ marginTop: 16 }}>
+        <div className="input-group" style={{ marginTop: 14 }}>
           <label className="input-label">Ride Note (optional)</label>
           <input className="input-field" placeholder="E.g. Starting from Hitech City metro station"
             value={note} onChange={e => setNote(e.target.value)} />
@@ -198,15 +203,15 @@ export default function CreateRidePage() {
         {isFemale && (
           <label className="create-check">
             <input type="checkbox" checked={women} onChange={e => setWomen(e.target.checked)} />
-            <span className="material-icons" style={{ fontSize: 18, color: 'var(--pink)' }}>female</span>
+            <span className="material-icons" style={{ fontSize: 16, color: 'var(--pink)' }}>female</span>
             Women-only ride
           </label>
         )}
 
         <button type="submit" className="btn btn-brand-lg" disabled={busy}
-          style={{ width: '100%', marginTop: 24 }}>
+          style={{ width: '100%', marginTop: 20 }}>
           {busy && <span className="spinner" />}
-          {busy ? 'Posting…' : '🚗 Post Ride'}
+          {busy ? 'Posting…' : 'Post Ride'}
         </button>
       </form>
     </div>

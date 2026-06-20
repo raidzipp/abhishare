@@ -9,6 +9,7 @@ export default function SignupPage() {
   const [name, setName] = useState('')
   const [gender, setGender] = useState('')
   const [phone, setPhone] = useState('')
+  const [dob, setDob] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [showPwd, setShowPwd] = useState(false)
@@ -20,19 +21,21 @@ export default function SignupPage() {
   if (authLoading && !user) {
     return (
       <div className="app-loading">
-        <div className="app-loading-logo">🚗</div>
+        <div className="app-loading-logo">R</div>
         <div className="app-loading-text gradient-text">RideZipp</div>
-        <div className="spinner spinner-brand" style={{ width: 28, height: 28 }} />
+        <div className="spinner spinner-brand" style={{ width: 24, height: 24 }} />
       </div>
     )
   }
 
-  if (!authLoading && user) return <Navigate to="/dashboard" replace />
+  if (!authLoading && user) {
+    return <Navigate to="/dashboard" replace />
+  }
 
   async function handleSignup(e) {
     e.preventDefault()
     setError('')
-    if (!name.trim() || !email || !password || !gender) {
+    if (!name.trim() || !email || !password || !gender || !dob) {
       setError('Please fill all required fields.'); return
     }
     if (password.length < 6) { setError('Password must be at least 6 characters.'); return }
@@ -41,16 +44,15 @@ export default function SignupPage() {
     try {
       const { error: err } = await supabase.auth.signUp({
         email, password,
-        options: { data: { full_name: name, gender, phone_number: phone } }
+        options: { data: { full_name: name, gender, phone_number: phone, date_of_birth: dob, profile_completed: true } }
       })
       
       if (err) {
         setError(err.message)
         setLoading(false)
       } else {
-        navigate('/profile-setup')
+        navigate('/dashboard')
       }
-      navigate('/profile-setup')
     } catch (err) {
       setError(err.message || 'Signup failed')
     } finally {
@@ -65,18 +67,21 @@ export default function SignupPage() {
         <div className="auth-circle auth-circle-2" />
         <div className="auth-circle auth-circle-3" />
         <div className="auth-visual-content">
-          <span className="auth-emoji">✨</span>
+          <div className="auth-emoji">✨</div>
           <h2>Join the<br />ride-sharing revolution</h2>
           <p>Create your account and start sharing rides with verified commuters in your city.</p>
         </div>
       </div>
       <div className="auth-form-side">
         <div className="auth-form-container">
-          <div className="auth-form-logo">🚗 <span className="gradient-text">RideZipp</span></div>
+          <div className="auth-form-logo">
+            <div className="auth-form-logo-icon">R</div>
+            <span>RideZipp</span>
+          </div>
           <h1>Create account</h1>
           <p className="auth-subtitle">Fill in your details to get started</p>
 
-          {error && <div className="alert alert-error"><span className="material-icons" style={{fontSize:18}}>error</span>{error}</div>}
+          {error && <div className="alert alert-error" style={{ marginBottom: 16 }}><span className="material-icons" style={{fontSize:16}}>error</span>{error}</div>}
 
           <form onSubmit={handleSignup} className="auth-form">
             <div className="input-group">
@@ -101,6 +106,12 @@ export default function SignupPage() {
             </div>
 
             <div className="input-group">
+              <label className="input-label">Date of Birth *</label>
+              <input id="signup-dob" className="input-field" type="date"
+                value={dob} onChange={e => setDob(e.target.value)} max={new Date().toISOString().split('T')[0]} required />
+            </div>
+
+            <div className="input-group">
               <label className="input-label">Email *</label>
               <input id="signup-email" className="input-field" type="email" placeholder="you@example.com"
                 value={email} onChange={e => setEmail(e.target.value)} required autoComplete="email" />
@@ -115,7 +126,7 @@ export default function SignupPage() {
                 </button>
               </div>
             </div>
-            <button type="submit" className="btn btn-brand-lg" disabled={loading} style={{width:'100%', marginTop:8}}>
+            <button type="submit" className="btn btn-brand-lg" disabled={loading} style={{width:'100%', marginTop:4}}>
               {loading && <span className="spinner" />}
               {loading ? 'Creating account…' : 'Create Account'}
             </button>

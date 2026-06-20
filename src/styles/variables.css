@@ -1,75 +1,84 @@
 /* ═══════════════════════════════════════════════════
-   RideZipp Design Tokens
-   Extracted from mobile_app Flutter theme
+   RideZipp Design Tokens — V3 Neo Futurism 2026
+   Premium Light Mobility Dashboard with Dark Sidebar
    ═══════════════════════════════════════════════════ */
 
 :root {
-  /* ── Brand Colors (Indigo Theme — Default) ── */
-  --brand-1: #6366F1;
-  --brand-2: #8B5CF6;
-  --brand-3: #A855F7;
-  --seed: #7C3AED;
-  --brand-gradient: linear-gradient(135deg, #6366F1, #8B5CF6, #A855F7);
-  --brand-glow: rgba(99, 102, 241, 0.15);
-  --brand-shadow: 0 8px 24px rgba(99, 102, 241, 0.22);
+  /* ── Brand Colors ── */
+  --brand-1: #6D4AFF;
+  --brand-2: #3B82F6;
+  --brand-3: #22D3EE;
+  --seed: #6D4AFF;
+  --brand-gradient: linear-gradient(135deg, #6D4AFF, #3B82F6);
+  --brand-glow: rgba(109, 74, 255, 0.15);
+  --brand-shadow: 0 4px 20px rgba(109, 74, 255, 0.3);
+  --brand-solid-hover: #5B3AE6;
 
-  /* ── Surfaces ── */
-  --page-bg: #F5F6FF;
+  /* ── Surfaces (Light Theme) ── */
+  --page-bg: #F7F8FC;
+  --page-bg-secondary: #FFFFFF;
   --card-bg: #FFFFFF;
-  --input-bg: #F8F9FF;
-  --indicator-bg: #E0E7FF;
-  --surface-hover: #F0ECFF;
+  --card-bg-solid: #FFFFFF;
+  --input-bg: #FFFFFF;
+  --indicator-bg: rgba(109, 74, 255, 0.1);
+  --surface-hover: #F3F4F6;
+  --surface-secondary: #F8FAFC;
+  --surface-elevated: #FFFFFF;
+  --glass-bg: rgba(255, 255, 255, 0.8);
+  --glass-border: rgba(255, 255, 255, 1);
 
   /* ── Text ── */
-  --text-primary: #1F2937;
+  --text-primary: #111827;
   --text-secondary: #6B7280;
   --text-muted: #9CA3AF;
   --text-on-brand: #FFFFFF;
-  --text-on-brand-muted: #C7D2FE;
+  --text-on-brand-muted: #E0E7FF;
+  --text-link: #6D4AFF;
 
   /* ── Borders ── */
-  --border: #E2E8F0;
-  --border-light: rgba(226, 232, 240, 0.5);
-  --border-brand: rgba(99, 102, 241, 0.2);
-  --divider: #F1F5F9;
+  --border: #E5E7EB;
+  --border-light: #F3F4F6;
+  --border-brand: rgba(109, 74, 255, 0.2);
+  --border-strong: #D1D5DB;
+  --divider: #F3F4F6;
 
   /* ── Status Colors ── */
-  --green: #22C55E;
-  --green-light: #DCFCE7;
-  --green-dark: #15803D;
+  --green: #10B981;
+  --green-light: rgba(16, 185, 129, 0.15);
+  --green-dark: #059669;
   --red: #EF4444;
-  --red-light: #FEE2E2;
-  --red-dark: #B91C1C;
-  --amber: #F59E0B;
-  --amber-light: #FEF9C3;
+  --red-light: rgba(239, 68, 68, 0.15);
+  --red-dark: #DC2626;
+  --amber: #FBBF24;
+  --amber-light: rgba(251, 191, 36, 0.15);
   --amber-dark: #D97706;
   --pink: #EC4899;
-  --pink-light: #FCE7F3;
-  --pink-dark: #BE185D;
-  --blue: #1D9BF0;
-  --blue-light: rgba(29, 155, 240, 0.1);
-  --teal: #2DD4BF;
+  --pink-light: rgba(236, 72, 153, 0.15);
+  --pink-dark: #DB2777;
+  --blue: #3B82F6;
+  --blue-light: rgba(59, 130, 246, 0.15);
+  --teal: #22D3EE;
   --orange: #F97316;
 
   /* ── Route Dots ── */
-  --dot-source: #22C55E;
-  --dot-dest: #F43F5E;
+  --dot-source: #10B981;
+  --dot-dest: #EF4444;
 
   /* ── Typography ── */
-  --font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, Consolas, monospace;
 
-  --text-xs: 0.6875rem;    /* 11px */
-  --text-sm: 0.75rem;      /* 12px */
-  --text-base: 0.8125rem;  /* 13px */
-  --text-md: 0.875rem;     /* 14px */
-  --text-lg: 0.9375rem;    /* 15px */
-  --text-xl: 1rem;         /* 16px */
-  --text-2xl: 1.125rem;    /* 18px */
-  --text-3xl: 1.25rem;     /* 20px */
-  --text-4xl: 1.5rem;      /* 24px */
-  --text-5xl: 1.75rem;     /* 28px */
-  --text-6xl: 2.25rem;     /* 36px */
+  --text-xs: 0.6875rem;
+  --text-sm: 0.75rem;
+  --text-base: 0.8125rem;
+  --text-md: 0.875rem;
+  --text-lg: 1rem;
+  --text-xl: 1.125rem;
+  --text-2xl: 1.25rem;
+  --text-3xl: 1.5rem;
+  --text-4xl: 1.75rem;
+  --text-5xl: 2rem;
+  --text-6xl: 2.5rem;
 
   /* ── Spacing ── */
   --space-1: 4px;
@@ -82,32 +91,35 @@
   --space-8: 32px;
   --space-10: 40px;
   --space-12: 48px;
+  --space-16: 64px;
 
   /* ── Border Radius ── */
+  --radius-xs: 6px;
   --radius-sm: 8px;
   --radius-md: 12px;
-  --radius-lg: 14px;
-  --radius-xl: 18px;
-  --radius-2xl: 22px;
-  --radius-3xl: 24px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-2xl: 24px;
+  --radius-3xl: 32px;
   --radius-full: 9999px;
 
   /* ── Shadows ── */
   --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.04);
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
   --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.06);
-  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.08);
-  --shadow-xl: 0 12px 40px rgba(0, 0, 0, 0.1);
-  --shadow-card: 0 4px 24px rgba(99, 102, 241, 0.08);
-  --shadow-card-hover: 0 8px 32px rgba(99, 102, 241, 0.14);
-  --shadow-brand: 0 8px 24px rgba(99, 102, 241, 0.28);
-  --shadow-brand-lg: 0 12px 36px rgba(99, 102, 241, 0.38);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.08);
+  --shadow-xl: 0 16px 32px rgba(0, 0, 0, 0.1);
+  --shadow-card: 0 6px 16px rgba(0, 0, 0, 0.04);
+  --shadow-card-hover: 0 12px 24px rgba(0, 0, 0, 0.08);
+  --shadow-brand: 0 4px 20px rgba(109, 74, 255, 0.25);
+  --shadow-brand-lg: 0 8px 32px rgba(109, 74, 255, 0.35);
+  --shadow-ring: 0 0 0 3px rgba(109, 74, 255, 0.25);
 
   /* ── Layout ── */
-  --sidebar-width: 260px;
-  --sidebar-collapsed: 72px;
-  --topbar-height: 64px;
-  --content-max: 1200px;
+  --sidebar-width: 300px;
+  --sidebar-collapsed: 80px;
+  --topbar-height: 0px;
+  --content-max: 1400px;
 
   /* ── Transitions ── */
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
@@ -115,36 +127,4 @@
   --duration-fast: 150ms;
   --duration-normal: 250ms;
   --duration-slow: 400ms;
-}
-
-/* ── Ocean Theme ── */
-[data-theme="ocean"] {
-  --brand-1: #0EA5E9;
-  --brand-2: #3B82F6;
-  --brand-3: #2DD4BF;
-  --brand-gradient: linear-gradient(135deg, #0EA5E9, #3B82F6, #2DD4BF);
-  --brand-glow: rgba(14, 165, 233, 0.15);
-  --brand-shadow: 0 8px 24px rgba(14, 165, 233, 0.22);
-  --indicator-bg: #DBEAFE;
-  --text-on-brand-muted: #BAE6FD;
-  --shadow-card: 0 4px 24px rgba(14, 165, 233, 0.08);
-  --shadow-card-hover: 0 8px 32px rgba(14, 165, 233, 0.14);
-  --shadow-brand: 0 8px 24px rgba(14, 165, 233, 0.28);
-  --shadow-brand-lg: 0 12px 36px rgba(14, 165, 233, 0.38);
-}
-
-/* ── Sunset Theme ── */
-[data-theme="sunset"] {
-  --brand-1: #F43F5E;
-  --brand-2: #F97316;
-  --brand-3: #EAB308;
-  --brand-gradient: linear-gradient(135deg, #F43F5E, #F97316, #EAB308);
-  --brand-glow: rgba(244, 63, 94, 0.15);
-  --brand-shadow: 0 8px 24px rgba(244, 63, 94, 0.22);
-  --indicator-bg: #FFE4E6;
-  --text-on-brand-muted: #FECDD3;
-  --shadow-card: 0 4px 24px rgba(244, 63, 94, 0.08);
-  --shadow-card-hover: 0 8px 32px rgba(244, 63, 94, 0.14);
-  --shadow-brand: 0 8px 24px rgba(244, 63, 94, 0.28);
-  --shadow-brand-lg: 0 12px 36px rgba(244, 63, 94, 0.38);
 }

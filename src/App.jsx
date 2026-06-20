@@ -3,7 +3,7 @@ import { AuthProvider } from './contexts/AuthContext'
 import AppShell from './components/layout/AppShell'
 import LoginPage from './pages/LoginPage'
 import SignupPage from './pages/SignupPage'
-import ProfileSetupPage from './pages/ProfileSetupPage'
+
 import DashboardPage from './pages/DashboardPage'
 import SearchRidePage from './pages/SearchRidePage'
 import CreateRidePage from './pages/CreateRidePage'
@@ -22,7 +22,6 @@ function App() {
           {/* Auth Routes (no layout) */}
           <Route path="/" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
-          <Route path="/profile-setup" element={<ProfileSetupPage />} />
 
           {/* Protected Routes (with AppShell layout) */}
           <Route element={<AppShell />}>

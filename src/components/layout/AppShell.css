@@ -1,33 +1,53 @@
+/* ═══════════════════════════════════════
+   AppShell — Dark Atmosphere Layout
+   ═══════════════════════════════════════ */
+
 .app-shell {
   display: flex;
   min-height: 100vh;
   background: var(--page-bg);
+  position: relative;
+  overflow: hidden;
 }
 
+/* ── Main Content ── */
 .shell-main {
   flex: 1;
-  margin-left: var(--sidebar-width);
+  margin-left: calc(var(--sidebar-width) + 32px);
   transition: margin-left var(--duration-normal) var(--ease-out);
   min-width: 0;
+  position: relative;
+  z-index: 1;
 }
 
 .shell-collapsed .shell-main {
-  margin-left: var(--sidebar-collapsed);
+  margin-left: calc(var(--sidebar-collapsed) + 32px);
 }
 
 .shell-content {
   max-width: var(--content-max);
   margin: 0 auto;
-  padding: 28px;
+  padding: 32px 32px 40px;
   animation: fadeInUp 0.4s var(--ease-out);
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* ── Mobile ── */
 @media (max-width: 768px) {
   .shell-main {
     margin-left: 0;
-    padding-bottom: 72px;
+    padding-bottom: 80px;
   }
-  .shell-collapsed .shell-main { margin-left: 0; }
-  .shell-content { padding: 16px; }
+
+  .shell-collapsed .shell-main {
+    margin-left: 0;
+  }
+
+  .shell-content {
+    padding: 16px;
+  }
 }

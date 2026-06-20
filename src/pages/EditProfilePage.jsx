@@ -52,8 +52,8 @@ export default function EditProfilePage() {
 
   if (loading) {
     return (
-      <div style={{ textAlign: 'center', padding: 80, color: 'var(--text-muted)' }}>
-        <div className="spinner spinner-brand" style={{ width: 28, height: 28, margin: '0 auto 12px' }} />
+      <div style={{ textAlign: 'center', padding: 60, color: 'var(--text-muted)' }}>
+        <div className="spinner spinner-brand" style={{ width: 24, height: 24, margin: '0 auto 10px' }} />
       </div>
     )
   }
@@ -61,26 +61,28 @@ export default function EditProfilePage() {
   return (
     <div className="page-enter">
       <button className="btn btn-ghost" onClick={() => navigate(-1)}
-        style={{ marginBottom: 16, gap: 4, padding: '8px 4px' }}>
-        <span className="material-icons" style={{ fontSize: 20 }}>arrow_back</span> Back
+        style={{ marginBottom: 14, gap: 4, padding: '6px 4px' }}>
+        <span className="material-icons" style={{ fontSize: 18 }}>arrow_back</span> Back
       </button>
 
-      <h1 style={{ fontSize: 'var(--text-5xl)', fontWeight: 900, letterSpacing: '-0.5px', marginBottom: 24 }}>Edit Profile</h1>
+      <div className="page-header">
+        <h1 className="page-title">Edit Profile</h1>
+      </div>
 
-      {error && <div className="alert alert-error" style={{ marginBottom: 16 }}><span className="material-icons" style={{ fontSize: 18 }}>error</span>{error}</div>}
+      {error && <div className="alert alert-error" style={{ marginBottom: 14 }}><span className="material-icons" style={{ fontSize: 16 }}>error</span>{error}</div>}
 
       <form onSubmit={save} className="edit-form">
-        <div className="input-group" style={{ marginBottom: 20 }}>
+        <div className="input-group" style={{ marginBottom: 18 }}>
           <label className="input-label">Full Name</label>
           <input className="input-field" value={name} onChange={e => setName(e.target.value)} placeholder="Enter your full name" required />
         </div>
 
-        <div className="input-group" style={{ marginBottom: 20 }}>
+        <div className="input-group" style={{ marginBottom: 18 }}>
           <label className="input-label">Phone Number</label>
           <input className="input-field" type="tel" value={phone} onChange={e => setPhone(e.target.value)} placeholder="Enter phone number" />
         </div>
 
-        <div className="input-group" style={{ marginBottom: 20 }}>
+        <div className="input-group" style={{ marginBottom: 18 }}>
           <label className="input-label">Gender</label>
           <select className="input-field" value={gender} onChange={e => setGender(e.target.value)}>
             <option value="">Select gender</option>
@@ -88,7 +90,7 @@ export default function EditProfilePage() {
           </select>
         </div>
 
-        <div className="input-group" style={{ marginBottom: 32 }}>
+        <div className="input-group" style={{ marginBottom: 28 }}>
           <label className="input-label">Date of Birth</label>
           <input className="input-field" type="date" value={dob} onChange={e => setDob(e.target.value)} max={new Date().toISOString().split('T')[0]} />
         </div>
